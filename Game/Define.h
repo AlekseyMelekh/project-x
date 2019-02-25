@@ -1,9 +1,12 @@
 #pragma once
+#pragma warning(disable : 4996)
 
-#define MAP_WIDTH			40
-#define MAP_HEIGHT			40
+#define MAP_WBLOCK				500
+#define MAP_HBLOCK				500
 
-#define TILE_SIZE			16
+#define TILE_SIZE				64
 
-#define WWIDTH				640
-#define WHEIGHT				480
+#define WWIDTH					1024
+#define WHEIGHT					768
+
+#define FPS						45

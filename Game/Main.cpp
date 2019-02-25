@@ -4,9 +4,10 @@
 
 App::App()
 {
-	Window = NULL;
-	Window_surface = Surf_Test = NULL;
+	Window = nullptr;
+	renderer = nullptr;
 	Running = true;
+	background = nullptr;
 }
 
 int App::StartGame()
@@ -16,21 +17,35 @@ int App::StartGame()
 		return -1;
 	}
 
-	SDL_Event Cur_Event;
+	SDL_Event CurEvent;
 
 	while (Running)
 	{
-		while (SDL_PollEvent(&Cur_Event))
+		startTimer();
+		while(getDiff() < 1000 / FPS)
 		{
-			Event(&Cur_Event);
+			while (SDL_PollEvent(&CurEvent))
+			{
+				onEvent(&CurEvent);
+			}
+			Loop();
+			Render();
 		}
-		Loop();
-		Render();
 	}
 
 	Cleanup();
 
+	std::cout << "ALL RIGHT\n";
+	system("pause");
 	return 0;
+}
+
+void App::startTimer() {
+	timeCounter = SDL_GetTicks();
+}
+
+Uint32 App::getDiff() {
+	return SDL_GetTicks() - timeCounter;
 }
 
 int main(int argc, char* argv[])
