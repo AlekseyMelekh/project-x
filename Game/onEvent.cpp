@@ -13,10 +13,10 @@ void App::OnExit() {
 
 void App::OnKeyDown(SDL_Keycode sym, int mod, int unicode){
 	switch (sym) {
-	case SDLK_UP:    Camera::CameraControl.OnMove(0, -4); break;
-	case SDLK_DOWN:  Camera::CameraControl.OnMove(0, 4); break;
-	case SDLK_LEFT:  Camera::CameraControl.OnMove(-4, 0); break;
-	case SDLK_RIGHT: Camera::CameraControl.OnMove(4, 0); break;
+	case SDLK_UP:    if (Motion::MoveTo(Hero.X, Hero.Y - 1)) Hero.Y--; break;
+	case SDLK_DOWN:  if (Motion::MoveTo(Hero.X, Hero.Y + 1)) Hero.Y++; break;
+	case SDLK_LEFT:  if (Motion::MoveTo(Hero.X - 1, Hero.Y)) Hero.X--; break;
+	case SDLK_RIGHT: if (Motion::MoveTo(Hero.X + 1, Hero.Y)) Hero.X++; break;
 
 	default: {
 	}

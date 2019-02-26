@@ -164,6 +164,7 @@
     <ClInclude Include="Main.h" />
     <ClInclude Include="MainHero.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Motion.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Events.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="Generator.cpp" />
     <ClCompile Include="MainHero.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Motion.cpp" />
     <ClCompile Include="onEvent.cpp" />
     <ClCompile Include="Init.cpp" />
     <ClCompile Include="Loop.cpp" />

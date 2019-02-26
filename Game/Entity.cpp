@@ -1,6 +1,8 @@
 #include "pch.h"
 
 #include "Entity.h"
+#include "Motion.h"
+#include "Define.h"
 #include <string>
 
 std::vector<Entity*> Entity::EntityList;
@@ -36,13 +38,15 @@ bool Entity::OnLoad(std::string File, SDL_Renderer* renderer, int Width, int Hei
 }
 
 void Entity::OnLoop() {
-	Anim_Control.OnAnimate();
+	if (!Motion::Gravity(X, Y)) {
+		Anim_Control.OnAnimate();
+	}
 }
 
 void Entity::OnRender(SDL_Renderer* renderer) {
 	if (Texture_Entity == NULL || renderer == NULL) return;
 
-	DrawTexture(Texture_Entity, renderer, X, Y, AnimState * Width, Anim_Control.GetCurrentFrame() * Height, Width, Height);
+	DrawTexture(Texture_Entity, renderer, WWIDTH / 2, WHEIGHT / 2, AnimState * Width, Anim_Control.GetCurrentFrame() * Height, Width, Height);
 }
 
 void Entity::OnCleanup() {

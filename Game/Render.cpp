@@ -20,17 +20,17 @@ void App::Render()
 			DrawTexture(i * bW, j * bH, background, renderer);
 		}
 	}
-	Game_Map.OnRender(renderer, Camera::CameraControl.GetX(), Camera::CameraControl.GetY());
+
+	Camera::CameraControl.SetPos(Hero.X - WWIDTH / TILE_SIZE / 2, Hero.Y - WHEIGHT / TILE_SIZE / 2);
+	App::Game_Map.OnRender(renderer, Camera::CameraControl.GetX(), Camera::CameraControl.GetY());
+
 	for (int i = 0; i < Entity::EntityList.size(); i++) {
 		if (!Entity::EntityList[i]) continue;
 
 		Entity::EntityList[i]->OnRender(renderer);
 	}
 
-	Hero.X = WWIDTH / 2;
-	Hero.Y = WHEIGHT / 2;
 	Hero.OnRender(renderer);
- 
 	SDL_RenderPresent(renderer);
 	SDL_Delay(100);
 }

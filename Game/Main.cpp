@@ -2,6 +2,8 @@
 
 #include "Main.h"
 
+Map	App::Game_Map;
+
 App::App()
 {
 	Window = nullptr;

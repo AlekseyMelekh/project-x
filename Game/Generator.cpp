@@ -11,7 +11,7 @@ void App::Generator()
 	{
 		for (int j = 0; j < MAP_HBLOCK; ++j)
 		{
-			kek << "0:1 ";
+			kek << "0:2 ";
 		}
 		kek << "\n";
 	}

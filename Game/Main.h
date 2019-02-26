@@ -12,11 +12,10 @@
 #include "Camera.h"
 #include "Map.h"
 #include "MainHero.h"
+#include "Motion.h"
 
 class App : public Events{
 private:
-	Entity				Entity1;
-	Entity				Entity2;
 	MainHero			Hero;
 private:
 	Animation			Anim_Yoshi;
@@ -25,11 +24,12 @@ private:
 	SDL_Window*			Window;
 	SDL_Texture*		background;
 	SDL_Renderer*		renderer;
-	Map					Game_Map;
+public:
+	static Map			Game_Map;
 public:
 	App();
 	~App() {};
-	bool Init(); // Эта функция нужна, чтобы задать начальные настройки мира(например: заспавнить персонажа)
+	bool Init(); // Ду
 	void onEvent(SDL_Event* Event); // Функция, отвечаеющая на действие игрока
 	void Loop(); // Подготавливает данные для рендеринга, после какого-то ивента(обновляет ХП, местоположение мобов)
 	void Render(); // Из названия понятно

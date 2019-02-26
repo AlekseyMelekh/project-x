@@ -30,23 +30,13 @@ bool App::Init()
 		return false;
 	}
 
-	if (Entity1.OnLoad("D:/Projects/University/Game/Pictures/yoshi.bmp", renderer, 64, 64, 8) == false) {
+	if (Hero.OnLoad("D:/Projects/University/Game/Pictures/yoshi.bmp", renderer, EntityWidht, EntityHeight, 8) == false) {
 		return false;
 	}
 
-	if (Entity2.OnLoad("D:/Projects/University/Game/Pictures/yoshi.bmp", renderer, 64, 64, 8) == false) {
-		return false;
-	}
+	Hero.X = 0, Hero.Y = -15;
 
-	Entity2.X = 200;
+	App::Game_Map.OnLoad("D:/Projects/University/Game/Maps/1.map", renderer);
 
-	if (Hero.OnLoad("D:/Projects/University/Game/Pictures/yoshi.bmp", renderer, 64, 64, 8) == false) {
-		return false;
-	}
-
-	Game_Map.OnLoad("D:/Projects/University/Game/Maps/1.map", renderer);
-
-	Entity::EntityList.push_back(&Entity1);
-	Entity::EntityList.push_back(&Entity2);
 	return true;
 }

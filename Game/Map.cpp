@@ -39,16 +39,17 @@ bool Map::OnLoad(std::string File, SDL_Renderer* renderer)
 
 void Map::OnRender(SDL_Renderer* renderer, int MapX, int MapY)
 {
-	for (int X = MapX * TILE_SIZE; X < MapX * TILE_SIZE + WWIDTH + TILE_SIZE; X += TILE_SIZE)
+	for (int X = MapX; X <= MapX + WWIDTH / TILE_SIZE; ++X)
 	{
-		for (int Y = MapY * TILE_SIZE; Y < MapY * TILE_SIZE + WHEIGHT + TILE_SIZE; Y += TILE_SIZE)
+		for (int Y = MapY; Y <= MapY + WHEIGHT / TILE_SIZE; ++Y)
 		{
-			int curX = X / TILE_SIZE;
-			int curY = Y / TILE_SIZE;
+			int curX = X;
+			int curY = Y;
 			int X1 = (curX - MapX) * TILE_SIZE;
 			int Y1 = (curY - MapY) * TILE_SIZE;
-			if(curX < MAP_WBLOCK && curY < MAP_HBLOCK && curX >= 0 && curY >= 0 && MAP[curX][curY].TypeID != TILE_TYPE_NONE)
-				DrawTexture(Tiles_Textures, renderer, X1, Y1, 0, MAP[curX][curY].TextureID * 64, 64, 64);
+			if (curX < MAP_WBLOCK && curY < MAP_HBLOCK && curX >= 0 && curY >= 0 && MAP[curX][curY].TypeID != TILE_TYPE_NONE) {
+				DrawTexture(Tiles_Textures, renderer, X1, Y1, 0, MAP[curX][curY].TextureID * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+			}
 		}
 	}
 }
