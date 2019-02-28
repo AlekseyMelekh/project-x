@@ -13,12 +13,12 @@ Camera::Camera() {
 	TargetMode = TARGET_MODE_NORMAL;
 }
 
-void Camera::OnMove(int MoveX, int MoveY) {
+void Camera::OnMove(float MoveX, float MoveY) {
 	X += MoveX;
 	Y += MoveY;
 }
 
-int Camera::GetX() {
+float Camera::GetX() {
 	if (TargetX != NULL) {
 		if (TargetMode == TARGET_MODE_CENTER) {
 			return *TargetX - (WWIDTH / 2);
@@ -30,7 +30,7 @@ int Camera::GetX() {
 	return X;
 }
 
-int Camera::GetY() {
+float Camera::GetY() {
 	if (TargetY != NULL) {
 		if (TargetMode == TARGET_MODE_CENTER) {
 			return *TargetY - (WHEIGHT / 2);
@@ -42,12 +42,12 @@ int Camera::GetY() {
 	return Y;
 }
 
-void Camera::SetPos(int X, int Y) {
+void Camera::SetPos(float X, float Y) {
 	this->X = X;
 	this->Y = Y;
 }
 
-void Camera::SetTarget(int* X, int* Y) {
+void Camera::SetTarget(float* X, float* Y) {
 	TargetX = X;
 	TargetY = Y;
 }

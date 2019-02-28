@@ -5,6 +5,7 @@
 #include <string>
 #include <utility>
 #include <algorithm>
+#include <iomanip>
 
 #include "Tile.h"
 #include "Texture.h"
@@ -21,7 +22,7 @@ public:
 
 	bool OnLoad(std::string File, SDL_Renderer* renderer);
 
-	void OnRender(SDL_Renderer* renderer, int MapX, int MapY);
+	void OnRender(SDL_Renderer* renderer, float MapX, float MapY);
 
 	void OnCleanup();
 };

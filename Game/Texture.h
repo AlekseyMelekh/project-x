@@ -6,5 +6,5 @@
 #include <iostream>
 
 SDL_Texture* LoadImage(std::string, SDL_Renderer *);
-void DrawTexture(int x, int y, SDL_Texture *, SDL_Renderer *);
-bool DrawTexture(SDL_Texture* tex, SDL_Renderer* rend, int X, int Y, int X2, int Y2, int W, int H);
+void DrawTexture(float x, float y, SDL_Texture *, SDL_Renderer *);
+bool DrawTexture(SDL_Texture* tex, SDL_Renderer* rend, float X, float Y, float X2, float Y2, float W, float H);

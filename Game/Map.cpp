@@ -9,7 +9,7 @@ Map::Map() {
 
 bool Map::OnLoad(std::string File, SDL_Renderer* renderer)
 {
-	Tiles_Textures = LoadImage("D:/Projects/University/Game/Pictures/MAP_TILES.bmp", renderer);
+	Tiles_Textures = LoadImage("Pictures/MAP_TILES.bmp", renderer);
 	if (Tiles_Textures == nullptr) {
 		std::cout << SDL_GetError() << std::endl;
 		return false;
@@ -37,16 +37,17 @@ bool Map::OnLoad(std::string File, SDL_Renderer* renderer)
 	return true;
 }
 
-void Map::OnRender(SDL_Renderer* renderer, int MapX, int MapY)
+void Map::OnRender(SDL_Renderer* renderer, float MapX, float MapY)
 {
-	for (int X = MapX; X <= MapX + WWIDTH / TILE_SIZE; ++X)
+	//std::cout << std::setprecision(5) << MapX << ' ' << MapY << '\n';
+	for (float X = MapX; X <= MapX + WWIDTH / TILE_SIZE; ++X)
 	{
-		for (int Y = MapY; Y <= MapY + WHEIGHT / TILE_SIZE; ++Y)
+		for (float Y = MapY; Y <= MapY + WHEIGHT / TILE_SIZE; ++Y)
 		{
 			int curX = X;
 			int curY = Y;
-			int X1 = (curX - MapX) * TILE_SIZE;
-			int Y1 = (curY - MapY) * TILE_SIZE;
+			float X1 = (curX - MapX) * TILE_SIZE;
+			float Y1 = (curY - MapY) * TILE_SIZE;
 			if (curX < MAP_WBLOCK && curY < MAP_HBLOCK && curX >= 0 && curY >= 0 && MAP[curX][curY].TypeID != TILE_TYPE_NONE) {
 				DrawTexture(Tiles_Textures, renderer, X1, Y1, 0, MAP[curX][curY].TextureID * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 			}

@@ -6,7 +6,7 @@
 
 void App::Generator()
 {
-	std::ofstream kek("D:/Projects/University/Game/Maps/1.map");
+	std::ofstream kek("Maps/1.map");
 	for (int i = 0; i < MAP_WBLOCK; ++i)
 	{
 		for (int j = 0; j < MAP_HBLOCK; ++j)

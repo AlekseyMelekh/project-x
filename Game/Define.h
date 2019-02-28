@@ -6,12 +6,15 @@
 #define MAP_WBLOCK				10
 #define MAP_HBLOCK				10
 
-#define TILE_SIZE				64
+#define TILE_SIZE				32
 
 #define WWIDTH					1024
 #define WHEIGHT					768
 
-#define FPS						45
+#define FPS						60
 
 #define EntityWidht				64
 #define EntityHeight			64
+
+#define STEP					0.2
+#define EPS                     0.00001

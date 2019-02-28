@@ -16,27 +16,27 @@ public:
 	static Camera CameraControl;
 
 private:
-	int X;
-	int Y;
+	float X;
+	float Y;
 
-	int* TargetX;
-	int* TargetY;
+	float* TargetX;
+	float* TargetY;
 
 public:
-	int TargetMode;
+	float TargetMode;
 
 public:
 	Camera();
 
 public:
-	void OnMove(int MoveX, int MoveY);
+	void OnMove(float MoveX, float MoveY);
 
 public:
-	int GetX();
-	int GetY();
+	float GetX();
+	float GetY();
 
 public:
-	void SetPos(int X, int Y);
+	void SetPos(float X, float Y);
 
-	void SetTarget(int* X, int* Y);
+	void SetTarget(float* X, float* Y);
 };

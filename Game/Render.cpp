@@ -5,10 +5,6 @@
 void App::Render()
 {
 	SDL_RenderClear(renderer);
-	
-	/*Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
-	bool IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
-	SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);*/ ///for FullScreen
 
 	int bW, bH;
 	SDL_QueryTexture(background, NULL, NULL, &bW, &bH);
@@ -21,7 +17,9 @@ void App::Render()
 		}
 	}
 
-	Camera::CameraControl.SetPos(Hero.X - WWIDTH / TILE_SIZE / 2, Hero.Y - WHEIGHT / TILE_SIZE / 2);
+	float tmpX = WWIDTH / TILE_SIZE / 2, tmpY = WHEIGHT / TILE_SIZE / 2;
+	//std::cout << std::setprecision(5) << Hero.X - tmpX << ' ' << Hero.Y - tmpY << '\n';
+	Camera::CameraControl.SetPos(Hero.X - tmpX, Hero.Y - tmpY);
 	App::Game_Map.OnRender(renderer, Camera::CameraControl.GetX(), Camera::CameraControl.GetY());
 
 	for (int i = 0; i < Entity::EntityList.size(); i++) {

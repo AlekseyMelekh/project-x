@@ -17,7 +17,7 @@ SDL_Texture* LoadImage(std::string file, SDL_Renderer* renderer) {
 	return texture;
 }
 
-void DrawTexture(int x, int y, SDL_Texture* tex, SDL_Renderer* rend)
+void DrawTexture(float x, float y, SDL_Texture* tex, SDL_Renderer* rend)
 {
 	SDL_Rect pos;
 
@@ -27,7 +27,7 @@ void DrawTexture(int x, int y, SDL_Texture* tex, SDL_Renderer* rend)
 	SDL_RenderCopy(rend, tex, NULL, &pos);
 }
 
-bool DrawTexture(SDL_Texture* tex, SDL_Renderer* rend, int X, int Y, int X2, int Y2, int W, int H)
+bool DrawTexture(SDL_Texture* tex, SDL_Renderer* rend, float X, float Y, float X2, float Y2, float W, float H)
 {
 	if (tex == NULL || rend == NULL) {
 		return false;
