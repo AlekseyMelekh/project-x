@@ -6,4 +6,5 @@ namespace Motion {
 	bool MoveTo(float toX, float toY);
 	bool StopMove(float toX, float toY);
 	bool Gravity(float& X, float& Y);
+	void Jump(float& FLYING, bool& STAY, float& X, float& Y);
 }

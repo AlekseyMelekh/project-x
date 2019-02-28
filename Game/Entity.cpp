@@ -15,6 +15,8 @@ Entity::Entity() {
 	X = Y = 0.0f;
 
 	Width = Height = 0;
+	STAY = true;
+	FLYING = 0;
 
 	AnimState = 0;
 }
@@ -38,8 +40,20 @@ bool Entity::OnLoad(std::string File, SDL_Renderer* renderer, int Width, int Hei
 }
 
 void Entity::OnLoop() {
-	if (!Motion::Gravity(X, Y)) {
-		Anim_Control.OnAnimate();
+	X = round(X * 10) / 10;
+	Y = round(Y * 10) / 10;
+	if (FLYING < EPS) {
+		if (!Motion::Gravity(X, Y)) {
+			Y = round(Y);
+			STAY = true;
+			Anim_Control.OnAnimate();
+		}
+		else {
+			STAY = false;
+		}
+	}
+	else {
+		Motion::Jump(FLYING, STAY, X, Y);
 	}
 }
 

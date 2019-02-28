@@ -31,8 +31,8 @@ public:
 	int             AnimState;
 	int				TypeEntity;
 
-	int				cX;
-	int				cY;
+	float			FLYING;
+	bool			STAY;
 
 public:
 	Entity();

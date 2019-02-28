@@ -3,18 +3,18 @@
 #pragma once
 #pragma warning(disable : 4996)
 
-#define MAP_WBLOCK				10
-#define MAP_HBLOCK				10
+#define MAP_WBLOCK				50
+#define MAP_HBLOCK				500
 
 #define TILE_SIZE				32
 
-#define WWIDTH					1024
-#define WHEIGHT					768
+#define WWIDTH					1920
+#define WHEIGHT					1088
 
 #define FPS						60
 
-#define EntityWidht				64
+#define EntityWidht				32
 #define EntityHeight			64
 
-#define STEP					0.2
-#define EPS                     0.00001
+const float STEP = 0.2;
+const float EPS = 0.01;

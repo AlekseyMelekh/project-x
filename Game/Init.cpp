@@ -39,7 +39,7 @@ bool App::Init()
 		return false;
 	}
 
-	Hero.X = 0, Hero.Y = -15;
+	Hero.X = 4, Hero.Y = 4;
 
 	App::Game_Map.OnLoad("Maps/1.map", renderer);
 

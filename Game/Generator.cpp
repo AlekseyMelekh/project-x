@@ -6,12 +6,20 @@
 
 void App::Generator()
 {
+	srand(time(NULL));
 	std::ofstream kek("Maps/1.map");
 	for (int i = 0; i < MAP_WBLOCK; ++i)
 	{
 		for (int j = 0; j < MAP_HBLOCK; ++j)
 		{
-			kek << "0:2 ";
+			if (j < 7)
+				kek << "1:0 ";
+			else {
+				if (rand() & 1)
+					kek << "0:2 ";
+				else
+					kek << "1:0 ";
+			}
 		}
 		kek << "\n";
 	}
