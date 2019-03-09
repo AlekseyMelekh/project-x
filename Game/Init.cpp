@@ -41,6 +41,11 @@ bool App::Init()
 
 	Hero.X = 4, Hero.Y = 4;
 
+	testNPC.X = testNPC.Y = 8;
+	if (testNPC.OnLoad("Pictures/zombie.bmp", renderer, EntityWidht, EntityHeight, 1) == false) {
+		return false;
+	}
+
 	App::Game_Map.OnLoad("Maps/1.map", renderer);
 
 	return true;

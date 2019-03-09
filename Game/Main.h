@@ -14,10 +14,12 @@
 #include "Map.h"
 #include "MainHero.h"
 #include "Motion.h"
+#include "AgressiveNPC.h"
 
 class App : public Events{
 private:
 	MainHero			Hero;
+	AgressiveNPC		testNPC;
 private:
 	Animation			Anim_Yoshi;
 	bool Running;

@@ -2,7 +2,7 @@
 
 #include "MainHero.h"
 
-MainHero::MainHero()
+MainHero::MainHero() : Entity()
 {
 	TypeEntity = PLAYER;
 }

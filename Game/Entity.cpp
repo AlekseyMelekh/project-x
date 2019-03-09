@@ -20,6 +20,7 @@ Entity::Entity() {
 	FLYING = speedr = speedf = 0;
 
 	AnimState = 0;
+	side = 0;
 }
 
 Entity::~Entity() {
@@ -47,11 +48,17 @@ void Entity::OnLoop() {
 	else {
 		//speedr = 0;
 	}
+	if (speedr != 0) {
+		(speedr > 0 ? side = 0 : side = 1);
+	}
 	X = round(X * 10) / 10;
 	Y = round(Y * 10) / 10;
 	if (FLYING < EPS) {
 		if (!Motion::Gravity(speedf, X, Y)) {
 			Y = round(Y);
+			if (App::Game_Map.MAP[X][Y+1].TypeID == TILE_TYPE_BLOCK) {
+				X = round(X);
+			}
 			STAY = true;
 			speedf = 0;
 			Anim_Control.OnAnimate();
@@ -67,8 +74,7 @@ void Entity::OnLoop() {
 
 void Entity::OnRender(SDL_Renderer* renderer) {
 	if (Texture_Entity == NULL || renderer == NULL) return;
-
-	DrawTexture(Texture_Entity, renderer, WWIDTH / 2, WHEIGHT / 2, AnimState * Width, Anim_Control.GetCurrentFrame() * Height, Width, Height);
+	DrawTexture(Texture_Entity, renderer, WWIDTH / 2, WHEIGHT / 2, AnimState * Width, Anim_Control.GetCurrentFrame() * Height + Height * Anim_Control.MaxFrames * side, Width, Height);
 }
 
 void Entity::OnCleanup() {

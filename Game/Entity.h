@@ -27,9 +27,10 @@ public:
 
 	int             Width;
 	int             Height;
-
+	
+	int				side;
 	int             AnimState;
-	int				TypeEntity;
+	type			TypeEntity;
 
 	float			FLYING;
 	float			speedr;

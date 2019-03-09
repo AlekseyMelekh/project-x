@@ -4,6 +4,7 @@
 
 void App::Cleanup()
 {
+	testNPC.OnCleanup();
 	for (int i = 0; i < (int)Entity::EntityList.size(); i++) {
 		if (!Entity::EntityList[i]) continue;
 
