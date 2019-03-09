@@ -13,10 +13,11 @@ Entity::Entity() {
 	TypeEntity = KIND_NPC;
 
 	X = Y = 0.0f;
+	CAN_JUMP = true;
 
 	Width = Height = 0;
 	STAY = true;
-	FLYING = 0;
+	FLYING = speedr = speedf = 0;
 
 	AnimState = 0;
 }
@@ -40,12 +41,19 @@ bool Entity::OnLoad(std::string File, SDL_Renderer* renderer, int Width, int Hei
 }
 
 void Entity::OnLoop() {
+	if (Motion::MoveTo(X + speedr, Y)) {
+		X += speedr;
+	}
+	else {
+		//speedr = 0;
+	}
 	X = round(X * 10) / 10;
 	Y = round(Y * 10) / 10;
 	if (FLYING < EPS) {
-		if (!Motion::Gravity(X, Y)) {
+		if (!Motion::Gravity(speedf, X, Y)) {
 			Y = round(Y);
 			STAY = true;
+			speedf = 0;
 			Anim_Control.OnAnimate();
 		}
 		else {

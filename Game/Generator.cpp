@@ -7,21 +7,40 @@
 void App::Generator()
 {
 	srand(time(NULL));
-	std::ofstream kek("Maps/1.map");
-	for (int i = 0; i < MAP_WBLOCK; ++i)
-	{
-		for (int j = 0; j < MAP_HBLOCK; ++j)
-		{
-			if (j < 7)
-				kek << "1:0 ";
+	FILE *kek = fopen("Maps/1.map", "w");
+
+	int type[MAP_WBLOCK][MAP_HBLOCK];
+	int text[MAP_WBLOCK][MAP_HBLOCK];
+
+	for (int i = 0; i < MAP_WBLOCK; ++i){
+		for (int j = 0; j < MAP_HBLOCK; ++j){
+			if (j < 15) {
+				type[i][j] = TILE_TYPE_NONE;
+				text[i][j] = TILE_TEXT_NONE;
+			}
 			else {
-				if (rand() & 1)
-					kek << "0:2 ";
-				else
-					kek << "1:0 ";
+				if (type[i][j-1] != TILE_TYPE_BLOCK) {
+					if (rand() & 1) {
+						type[i][j] = TILE_TYPE_BLOCK;
+						text[i][j] = TILE_TEXT_BRICK;
+					}
+					else {
+						type[i][j] = TILE_TYPE_NONE;
+						text[i][j] = TILE_TEXT_NONE;
+					}
+				}
+				else {
+					type[i][j] = TILE_TYPE_BLOCK;
+					text[i][j] = TILE_TEXT_BRICK;
+				}
 			}
 		}
-		kek << "\n";
 	}
-	kek.close();
+	for (int i = 0; i < MAP_WBLOCK; ++i) {
+		for (int j = 0; j < MAP_HBLOCK; ++j) {
+			fprintf(kek, "%d:%d ", text[i][j], type[i][j]);
+		}
+		fprintf(kek, "\n");
+	}
+	fclose(kek);
 }

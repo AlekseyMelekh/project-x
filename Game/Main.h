@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <cmath>
+#include <map>
 
 #include "Define.h"
 #include "Texture.h"
@@ -24,6 +25,7 @@ private:
 	SDL_Window*			Window;
 	SDL_Texture*		background;
 	SDL_Renderer*		renderer;
+	std::map < std::string, bool > flags;
 public:
 	static Map			Game_Map;
 public:
@@ -35,9 +37,11 @@ public:
 	void Render(); // Из названия понятно
 	void OnExit(); // Выйди и зайди нормально
 	void Generator(); // Генератор ы
-	void OnKeyDown(SDL_Keycode sym, int mod, int unicode); // управление камерой
+	void OnKeyDown(SDL_Keycode sym, int mod, int unicode);
+	void OnKeyUp(SDL_Keycode sym, int mod, int unicode);
 	void Cleanup(); // Очистить все, что мы загрузили(изображения, карты и тд и тп)
 	int StartGame(); // Покажите мне дауна, который не поймет, что здесь написано
+	void CheckFlags();
 	void startTimer();
 	Uint32 getDiff();
 };

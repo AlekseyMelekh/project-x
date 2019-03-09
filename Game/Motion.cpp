@@ -10,11 +10,11 @@ bool Motion::MoveTo(float toX, float toY) {
 }
 
 bool Motion::StopMove(float toX, float toY) {
-	std::cout << std::fixed << std::setprecision(5) << "toX = " << toX << ' ' << "  toY = " << toY << '\n';
+	//std::cout << std::fixed << std::setprecision(5) << "toX = " << toX << ' ' << "  toY = " << toY << '\n';
 	float X = toX, Y = toY;
 	toX = (int)(fabs(toX - (int)toX) < EPS ? toX : ceil(toX));
 	toY = (int)(fabs(toY - (int)toY) < EPS ? toY : ceil(toY));
-	std::cout << "X = " << toX << ' ' << "  Y = " << toY << '\n';
+	//std::cout << "X = " << toX << ' ' << "  Y = " << toY << '\n';
 	if ((int)toX >= 0 && (int)toX < MAP_WBLOCK && (int)toY >= 0 && (int)toY < MAP_HBLOCK 
 		&& (App::Game_Map.MAP[(int)toX][(int)toY].TypeID == TILE_TYPE_BLOCK 
 		|| App::Game_Map.MAP[(int)X][(int)Y].TypeID == TILE_TYPE_BLOCK
@@ -25,14 +25,15 @@ bool Motion::StopMove(float toX, float toY) {
 	return false;
 }
 
-bool Motion::Gravity(float& X, float& Y) {
+bool Motion::Gravity(float& speedf, float& X, float& Y) {
 	float X1 = (int)(fabs(X - (int)X) < EPS ? X : ceil(X));
-	std::cout << std::fixed << std::setprecision(5) << "Gravity: " << X << ' ' << Y << '\n';
+	//std::cout << std::fixed << std::setprecision(5) << "Gravity: " << X << ' ' << Y << '\n';
 	if (X1 < 0 || X > MAP_WBLOCK || Y > MAP_HBLOCK
 		|| fabs(X - MAP_WBLOCK) < EPS || fabs(Y - MAP_HBLOCK) < EPS
 		|| (App::Game_Map.MAP[abs((int)X)][(int)Y+2].TypeID != TILE_TYPE_BLOCK
 		&& App::Game_Map.MAP[X1][(int)Y+2].TypeID != TILE_TYPE_BLOCK)) {
-		Y++;
+		speedf = std::min(0.5, 1.0 * speedf + STEP / 5);
+		Y += speedf;
 		return true;
 	}
 	return false;

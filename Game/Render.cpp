@@ -30,5 +30,5 @@ void App::Render()
 
 	Hero.OnRender(renderer);
 	SDL_RenderPresent(renderer);
-	SDL_Delay(30);
+	SDL_Delay(1);
 }

@@ -32,7 +32,10 @@ public:
 	int				TypeEntity;
 
 	float			FLYING;
+	float			speedr;
+	float			speedf;
 	bool			STAY;
+	bool			CAN_JUMP;
 
 public:
 	Entity();

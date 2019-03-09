@@ -9,5 +9,6 @@ void App::Loop()
 
 		Entity::EntityList[i]->OnLoop();
 	}
+	CheckFlags();
 	Hero.OnLoop();
 }
