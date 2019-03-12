@@ -7,4 +7,5 @@
 class MainHero : public Entity{
 public:
 	MainHero();
+	void OnLoop();
 };

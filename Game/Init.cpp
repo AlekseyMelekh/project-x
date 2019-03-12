@@ -45,7 +45,6 @@ bool App::Init()
 	if (testNPC.OnLoad("Pictures/zombie.bmp", renderer, EntityWidht, EntityHeight, 1) == false) {
 		return false;
 	}
-
 	App::Game_Map.OnLoad("Maps/1.map", renderer);
 
 	return true;

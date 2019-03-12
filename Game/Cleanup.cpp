@@ -11,6 +11,7 @@ void App::Cleanup()
 		Entity::EntityList[i]->OnCleanup();
 	}
 	Entity::EntityList.clear();
+	testNPC.OnCleanup();
 	Hero.OnCleanup();
 	App::Game_Map.OnCleanup();
 	SDL_DestroyRenderer(renderer);

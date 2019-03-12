@@ -28,12 +28,12 @@ bool Motion::StopMove(float toX, float toY) {
 bool Motion::Gravity(float& speedf, float& X, float& Y) {
 	float X1 = (int)(fabs(X - (int)X) < EPS ? X : ceil(X));
 	std::cout << std::fixed << std::setprecision(5) << "Gravity: " << X << ' ' << Y << '\n';
-	if (X1 < 0 || X > MAP_WBLOCK || Y > MAP_HBLOCK
-		|| fabs(X - MAP_WBLOCK) < EPS || fabs(Y - MAP_HBLOCK) < EPS
-		|| (App::Game_Map.MAP[abs((int)X)][(int)Y+2].TypeID != TILE_TYPE_BLOCK
-		&& App::Game_Map.MAP[X1][(int)Y+2].TypeID != TILE_TYPE_BLOCK)) {
-		speedf = std::min(0.5, 1.0 * speedf + STEP / 5);
+	if (X1 < 0 || X > MAP_WBLOCK || (Y + speedf) > MAP_HBLOCK
+		|| fabs(X - MAP_WBLOCK) < EPS || fabs((Y + speedf) - MAP_HBLOCK) < EPS
+		|| (App::Game_Map.MAP[abs((int)X)][(int)(Y + speedf)+2].TypeID != TILE_TYPE_BLOCK
+		&& App::Game_Map.MAP[X1][(int)(Y + speedf) +2].TypeID != TILE_TYPE_BLOCK)) {
 		Y += speedf;
+		speedf = std::min(0.5, 1.0 * speedf + STEP / 10);
 		return true;
 	}
 	return false;

@@ -42,34 +42,7 @@ bool Entity::OnLoad(std::string File, SDL_Renderer* renderer, int Width, int Hei
 }
 
 void Entity::OnLoop() {
-	if (Motion::MoveTo(X + speedr, Y)) {
-		X += speedr;
-	}
-	else {
-		//speedr = 0;
-	}
-	if (speedr != 0) {
-		(speedr > 0 ? side = 0 : side = 1);
-	}
-	X = round(X * 10) / 10;
-	Y = round(Y * 10) / 10;
-	if (FLYING < EPS) {
-		if (!Motion::Gravity(speedf, X, Y)) {
-			Y = round(Y);
-			if (App::Game_Map.MAP[X][Y+1].TypeID == TILE_TYPE_BLOCK) {
-				X = round(X);
-			}
-			STAY = true;
-			speedf = 0;
-			Anim_Control.OnAnimate();
-		}
-		else {
-			STAY = false;
-		}
-	}
-	else {
-		Motion::Jump(FLYING, STAY, X, Y);
-	}
+	
 }
 
 void Entity::OnRender(SDL_Renderer* renderer) {

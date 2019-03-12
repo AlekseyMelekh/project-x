@@ -18,17 +18,14 @@ void App::Render()
 	}
 
 	float tmpX = WWIDTH / TILE_SIZE / 2, tmpY = WHEIGHT / TILE_SIZE / 2;
-	//std::cout << std::setprecision(5) << Hero.X - tmpX << ' ' << Hero.Y - tmpY << '\n';
-	Camera::CameraControl.SetPos(Hero.X - tmpX, Hero.Y - tmpY);
+
+	testNPC.OnRender(renderer);
+	Camera::CameraControl.SetPos(testNPC.X - tmpX, testNPC.Y - tmpY);
+	//Camera::CameraControl.SetPos(Hero.X - tmpX, Hero.Y - tmpY);
 	App::Game_Map.OnRender(renderer, Camera::CameraControl.GetX(), Camera::CameraControl.GetY());
-
-	for (int i = 0; i < Entity::EntityList.size(); i++) {
-		if (!Entity::EntityList[i]) continue;
-
-		Entity::EntityList[i]->OnRender(renderer);
-	}
-
-	Hero.OnRender(renderer);
+	
+	//Hero.OnRender(renderer);
+	
 	SDL_RenderPresent(renderer);
 	SDL_Delay(1);
 }

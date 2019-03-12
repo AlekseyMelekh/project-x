@@ -4,7 +4,7 @@
 
 void App::Loop()
 {
-	//testNPC.OnLoop();
+	testNPC.OnLoop();
 	CheckFlags();
 	Hero.OnLoop();
 }

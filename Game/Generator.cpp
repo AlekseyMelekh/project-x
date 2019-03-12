@@ -9,11 +9,16 @@ void App::Generator()
 	srand(time(NULL));
 	FILE *kek = fopen("Maps/1.map", "w");
 
-	int type[MAP_WBLOCK][MAP_HBLOCK];
-	int text[MAP_WBLOCK][MAP_HBLOCK];
+	std::vector< std::vector<int> > type(MAP_WBLOCK, std::vector<int>(MAP_HBLOCK));
+	std::vector< std::vector<int> > text(MAP_WBLOCK, std::vector<int>(MAP_HBLOCK));
 
 	for (int i = 0; i < MAP_WBLOCK; ++i){
 		for (int j = 0; j < MAP_HBLOCK; ++j){
+			if (i == 0 || i == MAP_WBLOCK) {
+				type[i][j] = TILE_TYPE_BLOCK;
+				text[i][j] = TILE_TEXT_BRICK;
+				continue;
+			}
 			if (j < 15) {
 				type[i][j] = TILE_TYPE_NONE;
 				text[i][j] = TILE_TEXT_NONE;
