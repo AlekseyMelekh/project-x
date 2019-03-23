@@ -3,6 +3,7 @@
 #include "Main.h"
 
 Map	App::Game_Map;
+MainHero App::Hero;
 
 App::App()
 {

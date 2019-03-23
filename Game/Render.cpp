@@ -19,12 +19,12 @@ void App::Render()
 
 	float tmpX = WWIDTH / TILE_SIZE / 2, tmpY = WHEIGHT / TILE_SIZE / 2;
 
-	testNPC.OnRender(renderer);
-	Camera::CameraControl.SetPos(testNPC.X - tmpX, testNPC.Y - tmpY);
-	//Camera::CameraControl.SetPos(Hero.X - tmpX, Hero.Y - tmpY);
+	Camera::CameraControl.SetPos(Hero.X - tmpX, Hero.Y - tmpY);
 	App::Game_Map.OnRender(renderer, Camera::CameraControl.GetX(), Camera::CameraControl.GetY());
-	
-	//Hero.OnRender(renderer);
+
+	Agr_NPC[0].OnRender(renderer, Camera::CameraControl.GetX(), Camera::CameraControl.GetY(), Agr_NPC);
+
+	Hero.OnRender(renderer);
 	
 	SDL_RenderPresent(renderer);
 	SDL_Delay(1);

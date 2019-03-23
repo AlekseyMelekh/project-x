@@ -4,14 +4,15 @@
 
 void App::Cleanup()
 {
-	testNPC.OnCleanup();
+	for (int i = 0; i < NUM_AGR_NPC; ++i) {
+		Agr_NPC[i].Entity::OnCleanup();
+	}
 	for (int i = 0; i < (int)Entity::EntityList.size(); i++) {
 		if (!Entity::EntityList[i]) continue;
 
 		Entity::EntityList[i]->OnCleanup();
 	}
 	Entity::EntityList.clear();
-	testNPC.OnCleanup();
 	Hero.OnCleanup();
 	App::Game_Map.OnCleanup();
 	SDL_DestroyRenderer(renderer);

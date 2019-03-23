@@ -5,13 +5,17 @@
 #include "Motion.h"
 
 AgressiveNPC::AgressiveNPC() : Entity(){
-	overlook = 10;
+	overlook = 20;
 	time_of_start = time_of_act = 0;
 	check_after_jump = false;
 }
 
 void AgressiveNPC::OnLoop() {
 	this->Entity::OnLoop();
+	action tmp = Trigger();
+	if(tmp != NONE){
+		act = tmp;
+	}
 	if (SDL_GetTicks() - time_of_start > time_of_act) {
 		act = GenerateAction();
 		switch (act) {
@@ -81,4 +85,40 @@ void AgressiveNPC::OnLoop() {
 action AgressiveNPC::GenerateAction() {
 	srand(time(nullptr));
 	return (action)(rand() % action::COUNT);
+}
+
+void AgressiveNPC::OnRender(SDL_Renderer* renderer, float MapX, float MapY, std::vector<AgressiveNPC>& v) {
+	float height = WHEIGHT / TILE_SIZE, weight = WWIDTH / TILE_SIZE;
+	for (int i = 0; i < NUM_AGR_NPC; ++i) {
+		int curX = X;
+		int curY = Y;
+		float X1 = (curX - MapX) * TILE_SIZE;
+		float Y1 = (curY - MapY) * TILE_SIZE;
+		if ((v[i].X >= MapX - 2 || v[i].X <= weight + 2)
+		&& (v[i].Y >= MapY - 2 || v[i].Y <= height + 2)) {
+			DrawTexture(Texture_Entity, renderer, X1, Y1, AnimState * Width, Anim_Control.GetCurrentFrame() * Height + Height * Anim_Control.MaxFrames * side, Width, Height);
+		}
+	}
+}
+
+action AgressiveNPC::Trigger() {
+	for (int i = -overlook; i <= overlook; ++i) {
+		for (int j = -overlook; j <= overlook; ++j) {
+			int checkX = i + X, checkY = j + Y;
+			if ((int)App::Hero.X == checkX && (int)App::Hero.Y == checkY) {
+				time_of_act = 1.0;
+				time_of_start = SDL_GetTicks();
+				if ((int)App::Hero.X == (int)X) {
+					return CHILL;
+				}
+				if ((int)App::Hero.X < (int)X) {
+					return GO_TO_THE_LEFT;
+				}
+				else {
+					return GO_TO_THE_RIGHT;
+				}
+			}
+		}
+	}
+	return NONE;
 }

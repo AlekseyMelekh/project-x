@@ -51,4 +51,6 @@ public:
 	virtual void OnRender(SDL_Renderer* renderer);
 
 	virtual void OnCleanup();
+
+	virtual void OnMove();
 };

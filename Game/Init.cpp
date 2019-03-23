@@ -2,7 +2,7 @@
 
 #include "Main.h"
 
-bool App::Init() 
+bool App::Init()
 {
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
@@ -41,10 +41,14 @@ bool App::Init()
 
 	Hero.X = 4, Hero.Y = 4;
 
-	testNPC.X = testNPC.Y = 8;
-	if (testNPC.OnLoad("Pictures/zombie.bmp", renderer, EntityWidht, EntityHeight, 1) == false) {
-		return false;
+	Agr_NPC.resize(NUM_AGR_NPC);
+	for (int i = 0; i < NUM_AGR_NPC; ++i) {
+		Agr_NPC[i].X = 50, Agr_NPC[i].Y = 8;
+		if(Agr_NPC[i].OnLoad("Pictures/zombie.bmp", renderer, EntityWidht, EntityHeight, 1) == false){
+			return false;
+		}
 	}
+
 	App::Game_Map.OnLoad("Maps/1.map", renderer);
 
 	return true;

@@ -18,8 +18,7 @@
 
 class App : public Events{
 private:
-	MainHero			Hero;
-	AgressiveNPC		testNPC;
+	std::vector<AgressiveNPC>	Agr_NPC;
 private:
 	Animation			Anim_Yoshi;
 	bool Running;
@@ -30,6 +29,7 @@ private:
 	std::map < std::string, bool > flags;
 public:
 	static Map			Game_Map;
+	static MainHero			Hero;
 public:
 	App();
 	~App() {};

@@ -10,7 +10,8 @@ enum action {
 	CHILL,
 	GO_TO_THE_RIGHT,
 	GO_TO_THE_LEFT,
-	COUNT
+	COUNT,
+	NONE
 };
 
 class AgressiveNPC : public Entity{
@@ -25,5 +26,7 @@ private:
 public:
 	AgressiveNPC();
 	void OnLoop();
-	action GenerateAction();
+	void OnRender(SDL_Renderer* renderer, float, float, std::vector<AgressiveNPC>&);
+	virtual action Trigger();
+	virtual action GenerateAction();
 };

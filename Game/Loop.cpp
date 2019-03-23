@@ -4,7 +4,9 @@
 
 void App::Loop()
 {
-	testNPC.OnLoop();
+	for (int i = 0; i < NUM_AGR_NPC; ++i) {
+		Agr_NPC[i].OnLoop();
+	}
 	CheckFlags();
 	Hero.OnLoop();
 }

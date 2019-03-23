@@ -57,3 +57,7 @@ void Entity::OnCleanup() {
 
 	Texture_Entity = NULL;
 }
+
+void Entity::OnMove() {
+
+}
