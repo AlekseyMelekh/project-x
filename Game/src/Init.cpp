@@ -21,7 +21,7 @@ bool App::Init()
 	bool IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
 	SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);*/ /// FOR FULLSCREEN
 
-	Generator();
+	//Generator();
 
 	renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr) {
@@ -43,7 +43,7 @@ bool App::Init()
 
 	Agr_NPC.resize(NUM_AGR_NPC);
 	for (int i = 0; i < NUM_AGR_NPC; ++i) {
-		Agr_NPC[i].X = rand() % (MAP_WBLOCK - 200) + 100, Agr_NPC[i].Y = 8;
+		Agr_NPC[i].X = rand() % (MAP_WBLOCK - 200) + 100, Agr_NPC[i].Y = 0;
 		if(Agr_NPC[i].OnLoad("Pictures/zombie.bmp", renderer, EntityWidht, EntityHeight, 1) == false){
 			return false;
 		}
