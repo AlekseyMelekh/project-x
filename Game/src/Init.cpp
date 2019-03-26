@@ -39,7 +39,7 @@ bool App::Init()
 		return false;
 	}
 
-	Hero.X = 4, Hero.Y = 4;
+	Hero.X = 40, Hero.Y = 4;
 
 	Agr_NPC.resize(NUM_AGR_NPC);
 	for (int i = 0; i < NUM_AGR_NPC; ++i) {

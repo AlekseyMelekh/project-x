@@ -5,7 +5,7 @@
 #include "Main.h"
 #include <random>
 
-int countAliveNeighbours(int &x, int &y, std::vector< std::vector<int> >& type) {
+int App::countAliveNeighbours(int &x, int &y, std::vector< std::vector<int> >& type) {
 	int dx[8] = { 1, 1, 1,-1, -1,-1, 0, 0 };
 	int dy[8] = { 0,-1, 1, 0, -1, 1, 1,-1 };
 	int count = 0;
@@ -25,7 +25,7 @@ int countAliveNeighbours(int &x, int &y, std::vector< std::vector<int> >& type) 
 	return count;
 }
 
-void doSimulationStep(std::vector< std::vector<int> >& type, const int& deathLimit, const int& birthLimit) {
+void App::doSimulationStep(std::vector< std::vector<int> >& type, const int& deathLimit, const int& birthLimit) {
 	std::vector< std::vector<int> > new_type(MAP_WBLOCK, std::vector<int>(MAP_HBLOCK));
 
 	for (int x = 0; x < MAP_WBLOCK; ++x) {
@@ -53,10 +53,10 @@ void doSimulationStep(std::vector< std::vector<int> >& type, const int& deathLim
 	type = new_type;
 }
 
-void GenerateRandomCaveLevel(std::vector< std::vector<int> >& type, std::vector< std::vector<int> >& text){
-	const int chanceToStartAlive = 45; // %
+void App::GenerateRandomCaveLevel(std::vector< std::vector<int> >& type, std::vector< std::vector<int> >& text) {
+	const int chanceToStartAlive = 50; // %
 	const int simulationSteps = 100;
-	const int deathLimit = 3;
+	const int deathLimit = 4;
 	const int birthLimit = 4;
 
 	std::random_device rd;
@@ -75,6 +75,14 @@ void GenerateRandomCaveLevel(std::vector< std::vector<int> >& type, std::vector<
 	}
 
 	for (int i = 0; i < simulationSteps; ++i) {
+		/*SDL_RenderClear(renderer);
+		std::string text = "Creation of map ";
+		text += std::to_string(i + 1);
+		text += "%";
+		DrawText(renderer, tools.ColorWhite, tools.FontLeadCoat, text, WWIDTH/2, WHEIGHT/2, 100, 100);
+		SDL_RenderPresent(renderer);
+		SDL_Delay(10000);*/
+		std::cout << "Creation of map " << i + 1 << "%\n";
 		doSimulationStep(type, deathLimit, birthLimit);
 	}
 

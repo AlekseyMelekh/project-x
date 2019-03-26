@@ -6,7 +6,7 @@
 #include <random>
 
 AgressiveNPC::AgressiveNPC() : Entity() {
-	overlook = 20;
+	overlook = 10;
 	time_of_start = time_of_act = 0;
 	check_after_jump = false;
 	lastFrameTime = SDL_GetTicks();
