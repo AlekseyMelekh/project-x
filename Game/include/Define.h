@@ -3,7 +3,7 @@
 #pragma once
 #pragma warning(disable : 4996)
 
-#define MAP_WBLOCK				300
+#define MAP_WBLOCK				1000
 #define MAP_HBLOCK				500
 
 #define TILE_SIZE				32
@@ -21,4 +21,7 @@ const float EPS = 0.001;
 const float EPS_SPEED = 0.00001;
 const int second = 1000;
 
-const int NUM_AGR_NPC = 10;
+const int NUM_AGR_NPC = 1;
+
+const int cave_level = 51;
+const int surface_level = 50;

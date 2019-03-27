@@ -11,6 +11,11 @@ bool App::Init()
 		return false;
 	}
 
+	if (TTF_Init() == -1) {
+		printf("TTF_Init: %s\n", TTF_GetError());
+		return false;
+	}
+
 	Window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WWIDTH, WHEIGHT, SDL_WINDOW_SHOWN);
 	if (Window == nullptr) {
 		std::cout << SDL_GetError() << std::endl;
@@ -20,14 +25,15 @@ bool App::Init()
 	/*Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
 	bool IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
 	SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);*/ /// FOR FULLSCREEN
-
-	//Generator();
-
+	
 	renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr) {
 		std::cout << SDL_GetError() << std::endl;
 		return false;
 	}
+
+
+	Generator();
 
 	background = LoadImage("Pictures/background.bmp", renderer);
 	if (background == nullptr) {
@@ -39,7 +45,7 @@ bool App::Init()
 		return false;
 	}
 
-	Hero.X = 40, Hero.Y = 4;
+	Hero.X = 10, Hero.Y = 4;
 
 	Agr_NPC.resize(NUM_AGR_NPC);
 	for (int i = 0; i < NUM_AGR_NPC; ++i) {

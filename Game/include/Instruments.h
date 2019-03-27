@@ -6,7 +6,7 @@
 class Instruments {
 public:
 	TTF_Font* FontLeadCoat;
-	SDL_Color ColorWhite;
+	SDL_Color ColorWhite, ColorBlack;
 	Instruments() {
 		if (TTF_Init() == -1) {
 			printf("TTF_Init: %s\n", TTF_GetError());
@@ -16,6 +16,7 @@ public:
 			printf("TTF_OpenFont: %s\n", TTF_GetError());
 		}
 		ColorWhite = { 255, 255, 255 };
+		ColorBlack = { 255, 0, 0 };
 	}
 	void OnCleanup() {
 	};

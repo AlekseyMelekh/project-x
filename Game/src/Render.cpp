@@ -5,7 +5,6 @@
 void App::Render()
 {
 	SDL_RenderClear(renderer);
-
 	int bW, bH;
 	SDL_QueryTexture(background, NULL, NULL, &bW, &bH);
 

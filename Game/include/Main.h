@@ -55,4 +55,5 @@ public:
 	int countAliveNeighbours(int &x, int &y, std::vector< std::vector<int> >& type);
 	void doSimulationStep(std::vector< std::vector<int> >& type, const int& deathLimit, const int& birthLimit);
 	void GenerateRandomCaveLevel(std::vector< std::vector<int> >& type, std::vector< std::vector<int> >& text);
+	void GenerateHills(std::vector< std::vector<int> >& type, std::vector< std::vector<int> >& text);
 };
