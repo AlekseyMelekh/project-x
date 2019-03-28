@@ -33,7 +33,7 @@ bool App::Init()
 	}
 
 
-	Generator();
+	//Generator();
 
 	background = LoadImage("Pictures/background.bmp", renderer);
 	if (background == nullptr) {
@@ -45,7 +45,7 @@ bool App::Init()
 		return false;
 	}
 
-	Hero.X = 10, Hero.Y = 4;
+	Hero.X = 5, Hero.Y = 4;
 
 	Agr_NPC.resize(NUM_AGR_NPC);
 	for (int i = 0; i < NUM_AGR_NPC; ++i) {

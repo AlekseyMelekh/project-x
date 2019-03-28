@@ -19,26 +19,29 @@ void Events::OnEvent(SDL_Event* Event) {
 		{
 		case SDL_WINDOWEVENT: {
 			switch (Event->window.event) {
-				//case SDL_WINDOWEVENT_ENTER: {
-				//	/*if (Event->active.gain)    OnMouseFocus();
-				//	else                OnMouseBlur();
+				/*case SDL_WINDOWEVENT_ENTER: {
+					if (Event->active.gain)    OnMouseFocus();
+					else                OnMouseBlur();
 
-				//	break;*/
-				//}
-				//case SDL_APPINPUTFOCUS: {
-				//	if (Event->active.gain)    OnInputFocus();
-				//	else                OnInputBlur();
+					break;
+				}
+				case SDL_WINDOWEVENT_FOCUS_GAINED: {
 
-				//	break;
-				//}
-				//case SDL_APPACTIVE: {
-				//	if (Event->active.gain)    OnRestore();
-				//	else                OnMinimize();
+					break;
+				}*/
+				/*case SDL_APPINPUTFOCUS: {
+					if (Event->active.gain)    OnInputFocus();
+					else                OnInputBlur();
 
-				//	break;
-				//}
-				//}
-				//break;
+					break;
+				}
+				case SDL_APPACTIVE: {
+					if (Event->active.gain)    OnRestore();
+					else                OnMinimize();
+
+					break;
+				}*/
+				break;
 			}
 		}
 		case SDL_KEYDOWN:

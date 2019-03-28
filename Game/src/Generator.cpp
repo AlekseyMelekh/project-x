@@ -62,7 +62,7 @@ void App::doSimulationStep(std::vector< std::vector<int> >& type, const int& dea
 
 void App::GenerateRandomCaveLevel(std::vector< std::vector<int> >& type, std::vector< std::vector<int> >& text) {
 	const int chanceToStartAlive = 50; // %
-	const int simulationSteps = 10;
+	const int simulationSteps = 100;
 	const int deathLimit = 4;
 	const int birthLimit = 4;
 
@@ -87,7 +87,7 @@ void App::GenerateRandomCaveLevel(std::vector< std::vector<int> >& type, std::ve
 		std::string text = "Creation   of   map   ";
 		text += std::to_string(i + 1);
 		text += "%";
-		DrawText(renderer, tools.ColorBlack, tools.FontLeadCoat, text, WWIDTH/2-350, WHEIGHT/2-350, 700, 300);
+		DrawText(renderer, tools.ColorBlack, tools.Graph_35_pix, text, WWIDTH/2-500, WHEIGHT/2-200, 1200, 150);
 		SDL_RenderPresent(renderer);
 		std::cout << "Creation of map " << i + 1 << "%\n";
 		doSimulationStep(type, deathLimit, birthLimit);

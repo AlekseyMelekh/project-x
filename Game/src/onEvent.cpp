@@ -11,6 +11,17 @@ void App::OnExit() {
 	Running = false;
 }
 
+void App::OnLButtonUp(float x, float y) {
+	
+}
+
+void App::OnLButtonDawn(float x, float y) {
+	if (Game_Map.MAP[x][y].TypeID == TILE_TYPE_BLOCK) {
+		Game_Map.MAP[x][y].TypeID = TILE_TYPE_NONE;
+		Game_Map.MAP[x][y].TextureID = TILE_TEXT_NONE;
+	}
+}
+
 void App::OnKeyDown(SDL_Keycode sym, int mod, int unicode){
 	switch (sym) {
 	//case SDLK_UP:    if (Motion::MoveTo(Hero.X, Hero.Y - 1)) Hero.Y -= STEP; break;

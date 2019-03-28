@@ -46,6 +46,8 @@ public:
 	void Generator(); // Генератор ы
 	void OnKeyDown(SDL_Keycode sym, int mod, int unicode);
 	void OnKeyUp(SDL_Keycode sym, int mod, int unicode);
+	void OnLButtonUp(float x, float y);
+	void OnLButtonDawn(float x, float y);
 	void Cleanup(); // Очистить все, что мы загрузили(изображения, карты и тд и тп)
 	int StartGame(); // Покажите мне дауна, который не поймет, что здесь написано
 	void CheckFlags();
