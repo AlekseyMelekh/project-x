@@ -12,25 +12,32 @@ void App::Render()
 	{
 		for (int j = 0; j < ceil(1.0*WHEIGHT / bH); ++j)
 		{
-			DrawTexture(i * bW, j * bH, background, renderer);
+			DrawTexture(i * bW, j * bH, background, renderer, Game_time.GetPart());
 		}
 	}
 
 	float tmpX = WWIDTH / TILE_SIZE / 2, tmpY = WHEIGHT / TILE_SIZE / 2;
 
-	Camera::CameraControl.SetPos(Hero.X - tmpX, Hero.Y - tmpY);
-	App::Game_Map.OnRender(renderer, Camera::CameraControl.GetX(), Camera::CameraControl.GetY());
-
-	for (int i = 0; i < NUM_AGR_NPC; ++i) {
-		Agr_NPC[i].OnRender(renderer, Camera::CameraControl.GetX(), Camera::CameraControl.GetY());
+	if (Game_time.GetPart() == NIGHT) {
+		std::cout << "NIGHT\n";
+	}
+	else {
+		std::cout << "DAY\n";
 	}
 
-	Hero.OnRender(renderer);
+	Camera::CameraControl.SetPos(Hero.X - tmpX, Hero.Y - tmpY);
+	App::Game_Map.OnRender(renderer, Game_time.GetPart(), Camera::CameraControl.GetX(), Camera::CameraControl.GetY());
+
+	for (int i = 0; i < NUM_AGR_NPC; ++i) {
+		Agr_NPC[i].OnRender(renderer, Game_time.GetPart(), Camera::CameraControl.GetX(), Camera::CameraControl.GetY());
+	}
+
+	Hero.OnRender(renderer, Game_time.GetPart());
 	HPbar.OnRender(renderer);
 	if (Hero.HP <= 0) {
 		Running = 0;
 		SDL_Texture* you_died = LoadImage("Pictures/you_died.bmp", renderer);
-		DrawTexture(you_died, renderer, 0, 0, 0, 0, WWIDTH, WHEIGHT);
+		DrawTexture(you_died, renderer, 0, 0, 0, 0, WWIDTH, WHEIGHT, NONE_PART);
 		SDL_DestroyTexture(you_died);
 		SDL_RenderPresent(renderer);
 		SDL_Delay(5000);

@@ -16,6 +16,8 @@
 #define EntityWidht				32
 #define EntityHeight			64
 
+#define PartDuration			60000 // X/1000 seconds, длительность части дня
+
 const float STEP = 0.2;
 const float EPS = 0.001;
 const float EPS_SPEED = 0.00001;
@@ -25,3 +27,10 @@ const int NUM_AGR_NPC = 10;
 
 const int cave_level = 30;
 const int surface_level = 50;
+
+enum partOfDay {
+	MORNING,
+	NIGHT,
+	COUNT_PART,
+	NONE_PART
+};

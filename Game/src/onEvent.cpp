@@ -11,12 +11,16 @@ void App::OnExit() {
 	Running = false;
 }
 
-void App::OnLButtonUp(float x, float y) {
+void App::OnLButtonUp(int mX, int mY) {
 	
 }
 
-void App::OnLButtonDawn(float x, float y) {
-	if (Game_Map.MAP[x][y].TypeID == TILE_TYPE_BLOCK) {
+void App::OnLButtonDown(int mX, int mY) {
+	int x = round(Camera::CameraControl.GetX()) + mX / TILE_SIZE, y = round(Camera::CameraControl.GetY()) + mY / TILE_SIZE;
+	if (fabs(Hero.X - x) <= 2 && fabs(Hero.Y - y) <= 2 &&
+		x >= 0 && x < MAP_WBLOCK && y >= 0 && y < MAP_HBLOCK &&
+		Game_Map.MAP[x][y].TypeID == TILE_TYPE_BLOCK) {
+
 		Game_Map.MAP[x][y].TypeID = TILE_TYPE_NONE;
 		Game_Map.MAP[x][y].TextureID = TILE_TEXT_NONE;
 	}

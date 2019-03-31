@@ -58,9 +58,9 @@ void Entity::AddHP(const int _HP) {
 	HP = std::min(MaxHP, HP + _HP);
 }
 
-void Entity::OnRender(SDL_Renderer* renderer) {
+void Entity::OnRender(SDL_Renderer* renderer, partOfDay part) {
 	if (Texture_Entity == NULL || renderer == NULL) return;
-	DrawTexture(Texture_Entity, renderer, WWIDTH / 2, WHEIGHT / 2, AnimState * Width, Anim_Control.GetCurrentFrame() * Height + Height * Anim_Control.MaxFrames * side, Width, Height);
+	DrawTexture(Texture_Entity, renderer, WWIDTH / 2, WHEIGHT / 2, AnimState * Width, Anim_Control.GetCurrentFrame() * Height + Height * Anim_Control.MaxFrames * side, Width, Height, part);
 }
 
 void Entity::OnCleanup() {

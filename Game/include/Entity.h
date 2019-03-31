@@ -55,7 +55,7 @@ public:
 
 	virtual void OnLoop();
 
-	virtual void OnRender(SDL_Renderer* renderer);
+	virtual void OnRender(SDL_Renderer* renderer, partOfDay part);
 
 	virtual void OnCleanup();
 

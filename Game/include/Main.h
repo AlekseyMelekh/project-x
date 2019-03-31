@@ -18,6 +18,7 @@
 #include "AgressiveNPC.h"
 #include "Instruments.h"
 #include "Interface.h"
+#include "GameTime.h"
 
 class App : public Events{
 private:
@@ -35,6 +36,7 @@ private:
 public:
 	static Map							Game_Map;
 	static MainHero						Hero;
+	GameTime							Game_time;
 public:
 	App();
 	~App() {};
@@ -46,8 +48,8 @@ public:
 	void Generator(); // Генератор ы
 	void OnKeyDown(SDL_Keycode sym, int mod, int unicode);
 	void OnKeyUp(SDL_Keycode sym, int mod, int unicode);
-	void OnLButtonUp(float x, float y);
-	void OnLButtonDawn(float x, float y);
+	void OnLButtonUp(int mX, int mY);
+	void OnLButtonDown(int mX, int mY);
 	void Cleanup(); // Очистить все, что мы загрузили(изображения, карты и тд и тп)
 	int StartGame(); // Покажите мне дауна, который не поймет, что здесь написано
 	void CheckFlags();

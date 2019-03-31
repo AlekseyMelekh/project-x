@@ -1,6 +1,8 @@
 #include "pch.h"
 
 #include "Texture.h"
+#include "Define.h"
+#include "Main.h"
 
 SDL_Texture* LoadImage(std::string file, SDL_Renderer* renderer) {
 	SDL_Surface *loadedImage = nullptr;
@@ -17,17 +19,23 @@ SDL_Texture* LoadImage(std::string file, SDL_Renderer* renderer) {
 	return texture;
 }
 
-void DrawTexture(float x, float y, SDL_Texture* tex, SDL_Renderer* rend)
+void DrawTexture(float x, float y, SDL_Texture* tex, SDL_Renderer* rend, partOfDay part)
 {
 	SDL_Rect pos;
 
 	pos.x = x, pos.y = y;
 
 	SDL_QueryTexture(tex, NULL, NULL, &pos.w, &pos.h);
+	if (part == NIGHT) {
+		SDL_SetTextureColorMod(tex, 20, 20, 20);
+	}
+	if (part == MORNING) {
+		SDL_SetTextureColorMod(tex, 200, 200, 200);
+	}
 	SDL_RenderCopy(rend, tex, NULL, &pos);
 }
 
-bool DrawTexture(SDL_Texture* tex, SDL_Renderer* rend, float X, float Y, float X2, float Y2, float W, float H)
+bool DrawTexture(SDL_Texture* tex, SDL_Renderer* rend, float X, float Y, float X2, float Y2, float W, float H, partOfDay part)
 {
 	if (tex == NULL || rend == NULL) {
 		return false;
@@ -46,9 +54,20 @@ bool DrawTexture(SDL_Texture* tex, SDL_Renderer* rend, float X, float Y, float X
 	SrcR.y = Y2;
 	SrcR.w = W;
 	SrcR.h = H;
-
+	
+	float xH = App::Hero.X - Camera::CameraControl.GetX(), yH = App::Hero.Y - Camera::CameraControl.GetY();
+	//std::cout << xH << ' ' << X << '\n';
+	part = NIGHT;
+	if (fabs(xH - X / TILE_SIZE) <= 2 && fabs(yH - Y / TILE_SIZE) <= 2) {
+		part = MORNING;
+	}
+	if (part == NIGHT) {
+		SDL_SetTextureColorMod(tex, 20, 20, 20);
+	}
+	if(part == MORNING){
+		SDL_SetTextureColorMod(tex, 200, 200, 200);
+	}
 	SDL_RenderCopy(rend, tex, &SrcR, &DestR);
-
 	return true;
 }
 

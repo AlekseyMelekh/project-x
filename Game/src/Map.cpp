@@ -37,7 +37,7 @@ bool Map::OnLoad(std::string File, SDL_Renderer* renderer)
 	return true;
 }
 
-void Map::OnRender(SDL_Renderer* renderer, float MapX, float MapY)
+void Map::OnRender(SDL_Renderer* renderer, partOfDay part, float MapX, float MapY)
 {
 	//std::cout << std::setprecision(5) << MapX << ' ' << MapY << '\n';
 	for (float X = MapX; X <= MapX + WWIDTH / TILE_SIZE; ++X)
@@ -49,7 +49,7 @@ void Map::OnRender(SDL_Renderer* renderer, float MapX, float MapY)
 			float X1 = (curX - MapX) * TILE_SIZE;
 			float Y1 = (curY - MapY) * TILE_SIZE;
 			if (curX < MAP_WBLOCK && curY < MAP_HBLOCK && curX >= 0 && curY >= 0 && MAP[curX][curY].TypeID != TILE_TYPE_NONE) {
-				DrawTexture(Tiles_Textures, renderer, X1, Y1, 0, MAP[curX][curY].TextureID * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+				DrawTexture(Tiles_Textures, renderer, X1, Y1, 0, MAP[curX][curY].TextureID * TILE_SIZE, TILE_SIZE, TILE_SIZE, part);
 			}
 		}
 	}
