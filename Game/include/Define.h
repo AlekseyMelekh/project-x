@@ -3,10 +3,10 @@
 #pragma once
 #pragma warning(disable : 4996)
 
-#define MAP_WBLOCK				300
-#define MAP_HBLOCK				200
+#define MAP_WBLOCK				500
+#define MAP_HBLOCK				500
 
-#define TILE_SIZE				32
+#define TILE_SIZE				1
 
 #define WWIDTH					1920.f
 #define WHEIGHT					1088.f
@@ -25,7 +25,7 @@ const int second = 1000;
 
 const int NUM_AGR_NPC = 10;
 
-const int cave_level = 30;
+const int cave_level = 53;
 const int surface_level = 50;
 
 enum partOfDay {
