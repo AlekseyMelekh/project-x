@@ -22,11 +22,8 @@ bool Map::OnLoad(std::string File, SDL_Renderer* renderer)
 		return false;
 	}
 
-	MAP.resize(MAP_WBLOCK);
-
 	for (int i = 0; i < MAP_WBLOCK; ++i)
 	{
-		MAP[i].resize(MAP_HBLOCK);
 		for (int j = 0; j < MAP_HBLOCK; ++j)
 		{
 			fscanf(FileMap, "%d:%d ", &MAP[i][j].TextureID, &MAP[i][j].TypeID);

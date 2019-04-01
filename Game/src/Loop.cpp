@@ -9,6 +9,7 @@ void App::Loop()
 	
 	}
 	Game_time.OnLoop();
+	Game_time.SetPart(MORNING);
 	CheckFlags();
 	Hero.OnLoop();
 	HPbar.OnLoop(Hero.HP);

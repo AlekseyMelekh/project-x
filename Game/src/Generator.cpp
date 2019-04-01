@@ -4,6 +4,10 @@
 #include <fstream>
 #include "Main.h"
 #include <random>
+#include <array>
+
+int dx[8] = { 1, 1, 1,-1, -1,-1, 0, 0 };
+int dy[8] = { 0,-1, 1, 0, -1, 1, 1,-1 };
 
 enum direction {
 	UP,
@@ -12,11 +16,8 @@ enum direction {
 	COUNT_
 };
 
-int App::countAliveNeighbours(int &x, int &y, std::vector< std::vector<int> >& type) {
-	int dx[8] = { 1, 1, 1,-1, -1,-1, 0, 0 };
-	int dy[8] = { 0,-1, 1, 0, -1, 1, 1,-1 };
+int App::countAliveNeighbours(int &x, int &y, const std::array< std::array<Tile_type, MAP_HBLOCK>, MAP_WBLOCK>& type) {
 	int count = 0;
-
 	for (int i = 0; i < 8; ++i) {
 		int cx = x + dx[i], cy = y + dy[i];
 		if (cx >= MAP_WBLOCK || cy >= MAP_HBLOCK || cy < 0 || cx < 0) {
@@ -32,35 +33,37 @@ int App::countAliveNeighbours(int &x, int &y, std::vector< std::vector<int> >& t
 	return count;
 }
 
-void App::doSimulationStep(std::vector< std::vector<int> >& type, const int& deathLimit, const int& birthLimit) {
-	std::vector< std::vector<int> > new_type(MAP_WBLOCK, std::vector<int>(MAP_HBLOCK));
-
+void App::doSimulationStep(std::array< std::array<Tile_type, MAP_HBLOCK>, MAP_WBLOCK>& type, const int& deathLimit, const int& birthLimit,
+			               const std::array< std::array<bool, MAP_HBLOCK>, MAP_WBLOCK>& do_not_change){
+	std::array< std::array<Tile_type, MAP_HBLOCK>, MAP_WBLOCK> new_type;
 	for (int x = 0; x < MAP_WBLOCK; ++x) {
-		for (int y = cave_level; y < MAP_HBLOCK; ++y) {
-			int cnt = countAliveNeighbours(x, y, type);
-
-			if (type[x][y] == TILE_TYPE_BLOCK) {
-				if (cnt < deathLimit) {
-					new_type[x][y] = TILE_TYPE_NONE;
+		for (int y = 0; y < MAP_HBLOCK; ++y) {
+			if (!do_not_change[x][y]) {
+				int cnt = countAliveNeighbours(x, y, type);
+				if (type[x][y] == TILE_TYPE_BLOCK) {
+					if (cnt < deathLimit) {
+						new_type[x][y] = TILE_TYPE_NONE;
+					}
+					else {
+						new_type[x][y] = TILE_TYPE_BLOCK;
+					}
 				}
 				else {
-					new_type[x][y] = TILE_TYPE_BLOCK;
-				}
-			}
-			else {
-				if (cnt > birthLimit) {
-					new_type[x][y] = TILE_TYPE_BLOCK;
-				}
-				else {
-					new_type[x][y] = TILE_TYPE_NONE;
+					if (cnt > birthLimit) {
+						new_type[x][y] = TILE_TYPE_BLOCK;
+					}
+					else {
+						new_type[x][y] = TILE_TYPE_NONE;
+					}
 				}
 			}
 		}
 	}
-	type = new_type;
+	type = std::move(new_type);
 }
 
-void App::GenerateRandomCaveLevel(std::vector< std::vector<int> >& type, std::vector< std::vector<int> >& text) {
+void App::GenerateRandomCaveLevel(std::array< std::array<Tile_type, MAP_HBLOCK>, MAP_WBLOCK >& type, std::array< std::array<Tile_text, MAP_HBLOCK>, MAP_WBLOCK >& text,
+						          const std::array< std::array<bool, MAP_HBLOCK>, MAP_WBLOCK>& do_not_change) {
 	const int chanceToStartAlive = 50; // %
 	const int simulationSteps = 100;
 	const int deathLimit = 4;
@@ -71,12 +74,14 @@ void App::GenerateRandomCaveLevel(std::vector< std::vector<int> >& type, std::ve
 	std::uniform_int_distribution<> dis(1, 100);
 
 	for (int x = 0; x < MAP_WBLOCK; ++x) {
-		for (int y = cave_level; y < MAP_HBLOCK; ++y) {
-			if (dis(gen) <= chanceToStartAlive) {
-				type[x][y] = TILE_TYPE_BLOCK;
-			}
-			else {
-				type[x][y] = TILE_TYPE_NONE;
+		for (int y = 0; y < MAP_HBLOCK; ++y) {
+			if (!do_not_change[x][y]) {
+				if (dis(gen) <= chanceToStartAlive) {
+					type[x][y] = TILE_TYPE_BLOCK;
+				}
+				else {
+					type[x][y] = TILE_TYPE_NONE;
+				}
 			}
 		}
 	}
@@ -85,35 +90,18 @@ void App::GenerateRandomCaveLevel(std::vector< std::vector<int> >& type, std::ve
 		SDL_RenderClear(renderer);
 
 		std::string text = "Creation   of   map   ";
-		text += std::to_string(i + 1);
+		text += std::to_string((100 / simulationSteps) * (i + 1));
 		text += "%";
 		DrawText(renderer, tools.ColorBlack, tools.Graph_35_pix, text, WWIDTH/2-500, WHEIGHT/2-200, 1200, 150);
 		SDL_RenderPresent(renderer);
-		std::cout << "Creation of map " << i + 1 << "%\n";
-		doSimulationStep(type, deathLimit, birthLimit);
-	}
-
-	for (int x = 0; x < MAP_WBLOCK; ++x) {
-		for (int y = 0; y < MAP_HBLOCK; ++y) {
-			/////////////////////////////////////
-			if (y >= surface_level && y <= cave_level) {
-				type[x][y] = TILE_TYPE_BLOCK;
-			}
-			if (x == 0 || x == MAP_WBLOCK - 1) {
-				type[x][y] = TILE_TYPE_BLOCK;
-			}
-			/////////////////////////////////////
-			if (type[x][y] == TILE_TYPE_BLOCK) {
-				text[x][y] = TILE_TEXT_BRICK;
-			}
-			else {
-				text[x][y] = TILE_TEXT_NONE;
-			}
-		}
+		//std::cout << "Creation of map " << i + 1 << "%\n";
+		doSimulationStep(type, deathLimit, birthLimit, do_not_change);
 	}
 }
 
-void App::GenerateHills(std::vector< std::vector<int> >& type, std::vector< std::vector<int> >& text) {
+void App::GenerateHills(std::array< std::array<Tile_type, MAP_HBLOCK>, MAP_WBLOCK >& type,
+						std::array< std::array<Tile_text, MAP_HBLOCK>, MAP_WBLOCK >& text,
+						std::array< std::array<bool, MAP_HBLOCK>, MAP_WBLOCK>& do_not_change) {
 	int cur_x = 0, cur_y = surface_level - 10, repeat, height, length, small_height;
 	std::random_device rd;
 	std::mt19937 gen(rd());
@@ -133,7 +121,9 @@ void App::GenerateHills(std::vector< std::vector<int> >& type, std::vector< std:
 			for (cur_x; cur_x <= bound; cur_x++) {
 				for (int y = cur_y; y < surface_level; y++) {
 					type[cur_x][y] = TILE_TYPE_BLOCK;
-					text[cur_x][y] = TILE_TEXT_BRICK;
+				}
+				for (int y = 0; y < cur_y + 10; y++) {
+					do_not_change[cur_x][y] = true;
 				}
 			}
 			break;
@@ -146,7 +136,9 @@ void App::GenerateHills(std::vector< std::vector<int> >& type, std::vector< std:
 				for (cur_x; cur_x <= bound; cur_x++) {
 					for (int y = cur_y; y < surface_level; y++) {
 						type[cur_x][y] = TILE_TYPE_BLOCK;
-						text[cur_x][y] = TILE_TEXT_BRICK;
+					}
+					for (int y = 0; y < cur_y + 10; y++) {
+						do_not_change[cur_x][y] = true;
 					}
 				}
 				cur_y = std::max(cur_y - small_height_gen(gen), height);
@@ -161,7 +153,9 @@ void App::GenerateHills(std::vector< std::vector<int> >& type, std::vector< std:
 				for (cur_x; cur_x <= bound; cur_x++) {
 					for (int y = cur_y; y < surface_level; y++) {
 						type[cur_x][y] = TILE_TYPE_BLOCK;
-						text[cur_x][y] = TILE_TEXT_BRICK;
+					}
+					for (int y = 0; y < cur_y + 10; y++) {
+						do_not_change[cur_x][y] = true;
 					}
 				}
 				cur_y = std::min(cur_y + small_height_gen(gen), height);
@@ -177,11 +171,27 @@ void App::Generator()
 {
 	FILE *kek = fopen("Maps/1.map", "w");
 
-	std::vector< std::vector<int> > type(MAP_WBLOCK, std::vector<int>(MAP_HBLOCK, TILE_TYPE_NONE));
-	std::vector< std::vector<int> > text(MAP_WBLOCK, std::vector<int>(MAP_HBLOCK, TILE_TEXT_NONE));
-	
-	GenerateRandomCaveLevel(type, text);
-	GenerateHills(type, text);
+	std::array< std::array<Tile_type, MAP_HBLOCK>, MAP_WBLOCK > type = {TILE_TYPE_NONE};
+	std::array< std::array<Tile_text, MAP_HBLOCK>, MAP_WBLOCK > text;
+	std::array< std::array<bool, MAP_HBLOCK>, MAP_WBLOCK> do_not_change = {false};
+
+	GenerateHills(type, text, do_not_change);
+	GenerateRandomCaveLevel(type, text, do_not_change);
+	for (int x = 0; x < MAP_WBLOCK; ++x) {
+		for (int y = 0; y < MAP_HBLOCK; ++y) {
+			/////////////////////////////////////
+			if (x == 0 || x == MAP_WBLOCK - 1) {
+				type[x][y] = TILE_TYPE_BLOCK;
+			}
+			/////////////////////////////////////
+			if (type[x][y] == TILE_TYPE_BLOCK) {
+				text[x][y] = TILE_TEXT_BRICK;
+			}
+			else {
+				text[x][y] = TILE_TEXT_NONE;
+			}
+		}
+	}
 
 	for (int i = 0; i < MAP_WBLOCK; ++i) {
 		for (int j = 0; j < MAP_HBLOCK; ++j) {

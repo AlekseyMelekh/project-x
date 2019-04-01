@@ -18,13 +18,6 @@ void App::Render()
 
 	float tmpX = WWIDTH / TILE_SIZE / 2, tmpY = WHEIGHT / TILE_SIZE / 2;
 
-	if (Game_time.GetPart() == NIGHT) {
-		std::cout << "NIGHT\n";
-	}
-	else {
-		std::cout << "DAY\n";
-	}
-
 	Camera::CameraControl.SetPos(Hero.X - tmpX, Hero.Y - tmpY);
 	App::Game_Map.OnRender(renderer, Game_time.GetPart(), Camera::CameraControl.GetX(), Camera::CameraControl.GetY());
 

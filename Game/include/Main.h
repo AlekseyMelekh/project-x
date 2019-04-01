@@ -56,8 +56,10 @@ public:
 	void startTimer();
 	Uint32 getDiff();
 public:
-	int countAliveNeighbours(int &x, int &y, std::vector< std::vector<int> >& type);
-	void doSimulationStep(std::vector< std::vector<int> >& type, const int& deathLimit, const int& birthLimit);
-	void GenerateRandomCaveLevel(std::vector< std::vector<int> >& type, std::vector< std::vector<int> >& text);
-	void GenerateHills(std::vector< std::vector<int> >& type, std::vector< std::vector<int> >& text);
+	int countAliveNeighbours(int &x, int &y, const std::array< std::array<Tile_type, MAP_HBLOCK>, MAP_WBLOCK>& type);
+	void doSimulationStep(std::array< std::array<Tile_type, MAP_HBLOCK>, MAP_WBLOCK>& type, const int& deathLimit, const int& birthLimit, const std::array< std::array<bool, MAP_HBLOCK>, MAP_WBLOCK>& do_not_change);
+	void GenerateRandomCaveLevel(std::array< std::array<Tile_type, MAP_HBLOCK>, MAP_WBLOCK >& type, std::array< std::array<Tile_text, MAP_HBLOCK>, MAP_WBLOCK >& text,
+						         const std::array< std::array<bool, MAP_HBLOCK>, MAP_WBLOCK>& do_not_change);
+	void GenerateHills(std::array< std::array<Tile_type, MAP_HBLOCK>, MAP_WBLOCK >& type, std::array< std::array<Tile_text, MAP_HBLOCK>, MAP_WBLOCK >& text,
+					   std::array< std::array<bool, MAP_HBLOCK>, MAP_WBLOCK>& do_not_change);
 };

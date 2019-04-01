@@ -6,6 +6,7 @@
 #include <utility>
 #include <algorithm>
 #include <iomanip>
+#include <array>
 
 #include "Tile.h"
 #include "Texture.h"
@@ -15,7 +16,7 @@ public:
 	int Width = MAP_WBLOCK;
 	int Height = MAP_HBLOCK;
 
-	std::vector< std::vector<Tile> > MAP;
+	std::array< std::array<Tile, MAP_HBLOCK>, MAP_WBLOCK > MAP;
 	SDL_Texture* Tiles_Textures;
 
 	Map();

@@ -57,7 +57,7 @@ bool DrawTexture(SDL_Texture* tex, SDL_Renderer* rend, float X, float Y, float X
 	
 	float xH = App::Hero.X - Camera::CameraControl.GetX(), yH = App::Hero.Y - Camera::CameraControl.GetY();
 	//std::cout << xH << ' ' << X << '\n';
-	part = NIGHT;
+	// = NIGHT;
 	if (fabs(xH - X / TILE_SIZE) <= 2 && fabs(yH - Y / TILE_SIZE) <= 2) {
 		part = MORNING;
 	}

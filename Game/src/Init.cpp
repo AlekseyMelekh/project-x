@@ -33,7 +33,7 @@ bool App::Init()
 	}
 
 
-	//Generator();
+	Generator();
 
 	background = LoadImage("Pictures/background.bmp", renderer);
 	if (background == nullptr) {
